@@ -1,0 +1,31 @@
+
+# Dependencies
+node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+build/
+coverage/
+
+# Private credentials
+*.pem
+*.key
+*.p12
+*.pfx
+service-account*.json
+credentials/
+secrets/
+
+# OS files
+.DS_Store
+Thumbs.db
