@@ -1,131 +1,136 @@
-# KSRTC Smart Bus Tracking & Reservation System
+# KSRTC Smart Bus Tracking & Information Platform
 
-A real-time bus tracking and seat reservation platform designed to improve public transportation services through GPS tracking, digital reservations, and real-time communication.
+A real-time public transportation tracking and information platform built using Flutter, Node.js, PostgreSQL, Google Maps, and Socket.IO.
 
-## Project Overview
+## 1. Project Overview
 
-The KSRTC Smart Bus Tracking & Reservation System is a full-stack application that connects passengers, conductors, and administrators through a centralized platform.
+The KSRTC Smart Bus Tracking & Information Platform is a full-stack application designed to improve public transportation information accessibility through real-time GPS tracking, live bus status updates, and centralized bus information management.
 
-Passengers can reserve bus seats and track buses in real time. Conductors can share live GPS locations and update bus statuses, while administrators can manage buses, schedules, and reservations.
+Passengers can view bus information, track buses on Google Maps, and receive service notifications. Conductors can share live GPS locations and update bus statuses, while administrators can manage buses and schedules through a centralized dashboard.
 
-## Problem Statement
+## 2. Problem Statement
 
-Traditional public transportation systems often lack convenient seat reservation facilities, real-time bus tracking, and timely communication about delays or schedule changes.
+Passengers often face difficulties knowing the real-time location of buses and accessing accurate information about delays, arrivals, departures, and schedule changes.
 
-Passengers may struggle to know the current location of their buses, while transport administrators need an efficient way to manage bus operations.
+Traditional transportation systems may not provide timely updates, making journey planning difficult.
 
-This project addresses these challenges through a centralized digital transportation management system.
+This project addresses these challenges by providing a centralized platform for real-time bus tracking and transportation information.
 
-## Features
+## 3. Features
 
 ### Passenger Module
-- Passenger registration and login.
-- Browse available buses and schedules.
-- Seat reservation.
-- View reservation details.
-- Real-time bus tracking using Google Maps.
-- Receive notifications and bus status updates.
+
+- View available bus information and schedules.
+- Track buses in real time using Google Maps.
+- View current bus locations.
+- Receive real-time bus status updates.
+- Get notifications about transportation updates.
 
 ### Conductor Module
-- Conductor authentication.
+
+- Secure conductor authentication.
 - View assigned bus and schedule.
 - Automatic background GPS location updates.
-- Update bus status (ON_TIME, DELAYED, ARRIVED, DEPARTED, CANCELLED, COMPLETED).
+- Update bus status:
+  - ON_TIME
+  - DELAYED
+  - ARRIVED
+  - DEPARTED
+  - CANCELLED
+  - COMPLETED
 - Update current stop and remarks.
 
 ### Admin Module
-- Admin authentication.
-- Manage buses and schedules.
-- Manage reservations.
+
+- Secure admin authentication.
+- Manage bus information.
+- Manage bus schedules.
 - Monitor bus operations.
 - Manage transportation information.
 
 ### Real-Time Features
-- Live bus location updates.
-- Socket.IO communication.
-- Real-time bus status updates.
+
+- Live GPS tracking.
+- Real-time communication using Socket.IO.
+- Live bus status updates.
 - Passenger notifications.
-- Automatic GPS tracking.
+- Automatic GPS location updates.
 
-## Technology Stack
+## 4. Technology Stack
 
-| Component | Technology |
-|---|---|
-| Frontend | Flutter, Dart |
-| Backend | Node.js, Express.js |
-| Database | PostgreSQL (Neon) |
-| Real-time Communication | Socket.IO |
-| Maps | Google Maps Flutter |
-| Location Tracking | Geolocator |
-| Authentication | JWT |
-| API Communication | REST APIs |
+| Component               | Technology            |
+| ----------------------- | --------------------- |
+| Frontend                | Flutter, Dart         |
+| Backend                 | Node.js, Express.js   |
+| Database                | PostgreSQL (Neon)     |
+| Real-Time Communication | Socket.IO             |
+| Maps Integration        | Google Maps Flutter   |
+| Location Tracking       | Geolocator            |
+| Authentication          | JSON Web Tokens (JWT) |
+| API Communication       | REST APIs             |
 
-## System Architecture
+## 5. System Architecture
 
-The application follows a client-server architecture.
+The application follows a client-server architecture connecting passengers, conductors, and administrators to a centralized backend.
 
 ```text
-             PASSENGER
-                 |
-             CONDUCTOR
-                 |
-               ADMIN
-                 |
-                 v
-        FLUTTER APPLICATION
-                 |
-          REST API / Socket.IO
-                 |
-                 v
-        NODE.JS + EXPRESS
-                 |
-        -------------------
-        |        |        |
-     Routes  Controllers Services
-        |        |        |
-        -------------------
-                 |
-                 v
-          POSTGRESQL (NEON)
-                 |
-                 v
-          REAL-TIME UPDATES
-                 |
-              SOCKET.IO
-                 |
-                 v
-       FLUTTER APPLICATION
+       PASSENGER / CONDUCTOR / ADMIN
+                    |
+                    v
+           FLUTTER APPLICATION
+                    |
+             REST API / SOCKET.IO
+                    |
+                    v
+             NODE.JS + EXPRESS
+                    |
+          ---------------------
+          |         |         |
+        Routes  Controllers  Services
+          |         |         |
+          ---------------------
+                    |
+                    v
+             POSTGRESQL (NEON)
+                    |
+                    v
+                 SOCKET.IO
+                    |
+                    v
+          REAL-TIME APP UPDATES
 ```
 
 ### Architecture Explanation
 
 1. Flutter provides the user interface for passengers, conductors, and administrators.
-2. Node.js and Express handle API requests and business logic.
-3. PostgreSQL stores application data.
-4. Socket.IO provides real-time communication.
+2. Node.js and Express handle API requests and application business logic.
+3. PostgreSQL stores user, bus, schedule, location, and status information.
+4. Socket.IO enables real-time communication between the backend and Flutter application.
 5. Geolocator obtains the conductor's GPS coordinates.
-6. Google Maps displays bus locations to passengers.
+6. Google Maps displays live bus locations to passengers.
 
-## Database Schema
+## 6. Database Schema
 
-The system uses PostgreSQL as its relational database.
+The application uses PostgreSQL as its relational database.
 
-The main data entities include:
+The main database entities include:
 
-| Entity | Purpose |
-|---|---|
-| Users / Accounts | User authentication and profiles |
-| Buses | Bus information |
-| Schedules | Bus routes and scheduled journeys |
-| Reservations | Passenger seat reservations |
-| Live Bus Locations | GPS coordinates and update timestamps |
-| Bus Status | Current bus status, stop, and remarks |
-| Conductor Sessions | Active conductor and bus assignments |
-| Notifications | Passenger and system notifications |
+| Table              | Purpose                               |
+| ------------------ | ------------------------------------- |
+| accounts           | User authentication                   |
+| citizen_profiles   | Passenger information                 |
+| driver_profiles    | Conductor information                 |
+| buses              | Bus information                       |
+| schedules          | Bus schedules and assignments         |
+| live_bus_location  | Live GPS coordinates and timestamps   |
+| bus_status         | Current bus status, stop, and remarks |
+| conductor_sessions | Active conductor sessions             |
+| notifications      | Passenger notifications               |
+| device_tokens      | Device notification tokens            |
 
-*Note: Update this list to match the exact table names in your final database schema.*
+_Note: Refer to the actual database migrations for the complete and exact database schema._
 
-## Project Structure
+## 7. Project Structure
 
 ```text
 ksrtc/
@@ -139,6 +144,7 @@ ksrtc/
 │   ├── sockets/
 │   ├── server.js
 │   ├── package.json
+│   ├── package-lock.json
 │   ├── .env.example
 │   └── .gitignore
 │
@@ -146,14 +152,24 @@ ksrtc/
 │   ├── android/
 │   ├── assets/
 │   ├── lib/
+│   ├── test/
 │   ├── pubspec.yaml
 │   └── .gitignore
+│
+├── screenshots/
+│   ├── passenger-home.png
+│   ├── bus-information.png
+│   ├── live-tracking.png
+│   ├── conductor-dashboard.png
+│   ├── live-gps-tracking.png
+│   ├── bus-status-update.png
+│   └── admin-dashboard.png
 │
 ├── README.md
 └── LICENSE
 ```
 
-## Installation and Setup
+## 8. Installation and Setup
 
 ### Prerequisites
 
@@ -163,28 +179,37 @@ ksrtc/
 - PostgreSQL database (Neon)
 - Google Maps API key
 
-### 1. Clone the Repository
+### Step 1: Clone the Repository
 
 ```bash
 git clone YOUR_GITHUB_REPOSITORY_URL
-cd ksrtc
+cd ksrtc_project
 ```
 
-### 2. Backend Setup
+### Step 2: Backend Setup
+
+Navigate to the backend folder:
 
 ```bash
 cd ksrtc-backend
 npm install
 ```
 
-Create a `.env` file using `.env.example` and configure your environment variables, including your PostgreSQL connection string and JWT secret.
+Create a `.env` file using `.env.example` and configure the required environment variables:
+
+- PostgreSQL database connection string
+- JWT secret
+- Backend port
+- Other required configuration
 
 Start the backend using the appropriate script defined in `package.json`.
 
-### 3. Frontend Setup
+### Step 3: Frontend Setup
+
+Open another terminal and navigate to the Flutter folder:
 
 ```bash
-cd ../ksrtcapp
+cd ksrtcapp
 flutter pub get
 ```
 
@@ -198,43 +223,46 @@ Run the Flutter application:
 flutter run
 ```
 
-## Screenshots
+## 9. Screenshots
 
-Add screenshots of your application in a `screenshots/` folder.
+All application screenshots are available in the [`screenshots/`](screenshots/) directory.
 
-Suggested screenshots:
+### Passenger Home Screen
 
-- Passenger Home Screen
-- Bus Search and Reservation
-- Live Bus Tracking
-- Conductor Dashboard
-- Live GPS Tracking
-- Bus Status Update
-- Admin Dashboard
-
-Example:
-
-```markdown
 ![Passenger Home](screenshots/passenger-home.png)
+
+### Bus Information Screen
+
+![Bus Information](screenshots/bus-information.png)
+
+### Live Bus Tracking
 
 ![Live Bus Tracking](screenshots/live-tracking.png)
 
+### Conductor Dashboard
+
 ![Conductor Dashboard](screenshots/conductor-dashboard.png)
-```
 
-## Future Improvements
+### Live GPS Tracking
 
-- Online payment integration.
-- Improved route optimization.
-- Advanced bus arrival time estimation.
-- Enhanced analytics dashboard.
-- Production-grade notification infrastructure.
-- Improved scalability and monitoring.
+![Live GPS Tracking](screenshots/live-gps-tracking.png)
 
-## License
+### Bus Status Update
+
+![Bus Status Update](screenshots/bus-status-update.png)
+
+### Admin Dashboard
+
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+## 10. Future Improvements
+
+- Improved estimated arrival time calculations.
+- Route optimization.
+- Advanced transportation analytics.
+- Improved notification infrastructure.
+- Production-grade monitoring and scalability.
+
+## 11. License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Author
-
-Developed as a full-stack public transportation management project using Flutter, Node.js, PostgreSQL, and real-time technologies.
